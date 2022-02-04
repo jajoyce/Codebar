@@ -21,12 +21,44 @@ class Instructor(Member):
     def add_skill(self, skill):
         self.skills.append(skill)
 
-
+class Workshop:
+    def __init__(self, date, subject, instructors=None, students=None):
+        self.date = date
+        self.subject = subject
+        if instructors is None:
+            instructors = []
+        self.instructors = instructors
+        if students is None:
+            students = []
+        self.students = students
+    
+    def add_participant(self, member):
+        if type(member).__name__ == "Instructor":
+            self.instructors.append(member)
+        elif type(member).__name__ == "Student":
+            self.students.append(member)
+        else:
+            print("Participant is not a valid Member.")
+    
+    def print_details(self):
+        print(f"Workshop - {self.date} - {self.subject}")
+        print("\nStudents")
+        for i, student in enumerate(self.students, 1):
+            print(f"{i}. {student.full_name} - {student.reason}")
+        print("\nInstructors")
+        for i, instructor in enumerate(self.instructors, 1):
+            skills_string = ""
+            for j, skill in enumerate(instructor.skills, 1):
+                if j == len(instructor.skills):
+                    skills_string += skill
+                else:
+                    skills_string += skill + ", "
+            print(f"{i}. {instructor.full_name} - {skills_string}\n   {instructor.bio}")
 
 
 # Test Code from README:
 
-# workshop = Workshop("12/03/2014", "Shutl")
+workshop = Workshop("12/03/2014", "Shutl")
 
 jane = Student("Jane Doe", "I am trying to learn programming and need some help")
 lena = Student("Lena Smith", "I am really excited about learning to program!")
@@ -36,8 +68,8 @@ vicky.add_skill("JavaScript")
 nicole = Instructor("Nicole McMillan", "I have been programming for 5 years in Python and want to spread the love")
 nicole.add_skill("Python")
 
-# workshop.add_participant(jane)
-# workshop.add_participant(lena)
-# workshop.add_participant(vicky)
-# workshop.add_participant(nicole)
-# workshop.print_details()
+workshop.add_participant(jane)
+workshop.add_participant(lena)
+workshop.add_participant(vicky)
+workshop.add_participant(nicole)
+workshop.print_details()
