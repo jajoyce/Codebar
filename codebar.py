@@ -41,10 +41,19 @@ class Workshop:
             print("Participant is not a valid Member.")
     
     def print_details(self):
+        self.__print_workshop()
+        self.__print_students()
+        self.__print_instructors()
+    
+    def __print_workshop(self):
         print(f"Workshop - {self.date} - {self.subject}")
+
+    def __print_students(self):
         print("\nStudents")
         for i, student in enumerate(self.students, 1):
             print(f"{i}. {student.full_name} - {student.reason}")
+
+    def __print_instructors(self):
         print("\nInstructors")
         for i, instructor in enumerate(self.instructors, 1):
             skills_string = ""
